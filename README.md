@@ -53,27 +53,27 @@ npm run build
 
 ```text
 src/
-├── components/
-│   ├── CompareModal.tsx
-│   ├── ErrorState.tsx
-│   ├── LoadingSkeleton.tsx
-│   ├── PokemonCard.tsx
-│   ├── PokemonGrid.tsx
-│   ├── PokemonModal.tsx
-│   ├── SearchBar.tsx
-│   └── TypeFilter.tsx
-├── services/
-│   └── pokemonApi.ts
-├── hooks/
-│   └── useFavorites.ts
-├── types/
-│   └── pokemon.ts
-├── utils/
-│   └── colors.ts
-├── styles/
-│   └── index.css
-├── App.tsx
-└── main.tsx
+  components/
+    CompareModal.tsx
+    ErrorState.tsx
+    LoadingSkeleton.tsx
+    PokemonCard.tsx
+    PokemonGrid.tsx
+    PokemonModal.tsx
+    SearchBar.tsx
+    TypeFilter.tsx
+  services/
+    pokemonApi.ts
+  hooks/
+    useFavorites.ts
+  types/
+    pokemon.ts
+  utils/
+    colors.ts
+  styles/
+    index.css
+  App.tsx
+  main.tsx
 ```
 
 ## Design Architecture

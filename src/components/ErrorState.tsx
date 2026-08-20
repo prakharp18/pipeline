@@ -1,5 +1,6 @@
 import React from 'react';
-import { AlertCircle } from 'lucide-react';
+import { SearchX } from 'lucide-react';
+import styles from './ErrorState.module.css';
 
 interface ErrorStateProps {
   message?: string;
@@ -7,19 +8,15 @@ interface ErrorStateProps {
 }
 
 export const ErrorState: React.FC<ErrorStateProps> = ({
-  message = 'Pokémon not found. Try searching for another name or ID.',
+  message = 'Pokémon not found. Try searching for another Pokémon.',
   onRetry
-}) => {
-  return (
-    <div className="error-box">
-      <AlertCircle size={40} color="#ef4444" />
-      <h3 className="error-title">No Pokémon Found</h3>
-      <p className="error-text">{message}</p>
-      {onRetry && (
-        <button className="btn-primary" onClick={onRetry}>
-          Reset Search
-        </button>
-      )}
+}) => (
+  <div className={styles['error-container']}>
+    <div style={{ marginBottom: '0.5rem', color: 'var(--text-muted)' }}>
+      <SearchX size={48} />
     </div>
-  );
-};
+    <h3>No Pokémon Found</h3>
+    <p>{message}</p>
+    {onRetry && <button onClick={onRetry}>Reset Search</button>}
+  </div>
+);

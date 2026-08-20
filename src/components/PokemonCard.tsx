@@ -1,7 +1,8 @@
 import React from 'react';
+import type { PokemonDetail } from '../types/pokemon';
+import { getTypeTheme, formatId, capitalize } from '../utils/colors';
 import { Heart } from 'lucide-react';
-import { PokemonDetail } from '../types/pokemon';
-import { getTypeColor, formatPokemonId, capitalize } from '../utils/colors';
+import styles from './PokemonCard.module.css';
 
 interface PokemonCardProps {
   pokemon: PokemonDetail;
@@ -20,71 +21,56 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
   isComparingSelected,
   onToggleCompare
 }) => {
-  const primaryType = pokemon.types[0]?.type.name || 'normal';
-  const typeColors = getTypeColor(primaryType);
-
-  const mainImage =
-    pokemon.sprites.other['official-artwork'].front_default ||
-    pokemon.sprites.front_default;
+  const primary = pokemon.types[0]?.type.name || 'normal';
+  const theme = getTypeTheme(primary);
+  const img = pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default;
 
   return (
-    <div className="pokemon-card" onClick={() => onSelect(pokemon)}>
-      {onToggleCompare && (
-        <input
-          type="checkbox"
-          className="compare-checkbox"
-          checked={isComparingSelected || false}
-          onChange={(e) => {
-            e.stopPropagation();
-            onToggleCompare(pokemon);
-          }}
-          onClick={(e) => e.stopPropagation()}
-          title="Select to compare"
-        />
-      )}
-
-      <div className="card-top">
-        <span className="pokemon-id">{formatPokemonId(pokemon.id)}</span>
-        <button
-          className={`fav-btn ${isFavorite ? 'active' : ''}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            onToggleFavorite(pokemon.id);
-          }}
-          title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-        >
-          <Heart size={18} fill={isFavorite ? '#ef4444' : 'none'} />
-        </button>
+    <div
+      className={styles['poke-card']}
+      style={{ '--card-bg': theme.bg } as React.CSSProperties}
+      onClick={() => onSelect(pokemon)}
+    >
+      <div className={styles['poke-card-top']}>
+        <div className={styles['poke-card-id']}>{formatId(pokemon.id)}</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+          {onToggleCompare && (
+            <input
+              type="checkbox"
+              checked={isComparingSelected || false}
+              onChange={(e) => { e.stopPropagation(); onToggleCompare(pokemon); }}
+              onClick={(e) => e.stopPropagation()}
+              title="Compare"
+              style={{ cursor: 'pointer', width: '15px', height: '15px' }}
+            />
+          )}
+          <button
+            onClick={(e) => { e.stopPropagation(); onToggleFavorite(pokemon.id); }}
+            title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+            className={styles['fav-button']}
+          >
+            <Heart size={18} fill={isFavorite ? '#ef4444' : 'none'} color={isFavorite ? '#ef4444' : 'currentColor'} />
+          </button>
+        </div>
       </div>
 
-      <div className="card-img-wrapper">
-        <div
-          className="card-img-bg"
-          style={{ backgroundColor: typeColors.bg }}
-        />
-        <img
-          src={mainImage}
-          alt={pokemon.name}
-          className="pokemon-img"
-          loading="lazy"
-        />
+      <div className={styles['poke-card-center']}>
+        <img src={img} alt={pokemon.name} loading="lazy" />
       </div>
 
-      <h3 className="pokemon-name">{capitalize(pokemon.name)}</h3>
-
-      <div className="badge-group">
-        {pokemon.types.map((t) => {
-          const colors = getTypeColor(t.type.name);
-          return (
-            <span
-              key={t.type.name}
-              className="type-badge"
-              style={{ backgroundColor: colors.bg, color: colors.text }}
-            >
-              {t.type.name}
-            </span>
-          );
-        })}
+      <div className={styles['poke-card-footer']}>
+        <div className={styles['poke-card-label']}>Name</div>
+        <div className={styles['poke-card-name']}>{capitalize(pokemon.name)}</div>
+        <div className={styles['poke-tags']}>
+          {pokemon.types.map((t) => {
+            const tt = getTypeTheme(t.type.name);
+            return (
+              <span key={t.type.name} className={styles['poke-tag']} style={{ backgroundColor: tt.badgeBg, color: tt.badgeText }}>
+                {t.type.name}
+              </span>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

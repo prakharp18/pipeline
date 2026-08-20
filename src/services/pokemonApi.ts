@@ -1,4 +1,4 @@
-import { PokemonDetail, PokemonListResponse, TypeDetailResponse } from '../types/pokemon';
+import type { PokemonDetail, PokemonListResponse, TypeDetailResponse } from '../types/pokemon';
 
 const BASE_URL = 'https://pokeapi.co/api/v2';
 

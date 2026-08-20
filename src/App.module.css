@@ -1,0 +1,39 @@
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  min-height: 100vh;
+}
+.load-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.load-more-btn {
+  background: var(--text-dark);
+  color: var(--bg);
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.load-more-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+.load-more-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+@media (max-width: 768px) {
+  .app-container { padding: 1rem; }
+}
+
+ :global([data-theme='dark']) .load-more-btn { 
+  background: #e2e8f0; 
+  color: #0f172a; 
+}  
