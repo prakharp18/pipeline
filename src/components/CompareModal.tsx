@@ -32,16 +32,9 @@ export const CompareModal: React.FC<Props> = ({ pokemonList, onClose }) => {
         <button
           className={styles['modal-close-btn']}
           onClick={onClose}
-          style={{
-            position: 'absolute',
-            right: '1.5rem',
-            top: '1.5rem',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer'
-          }}
+          aria-label="Close comparison"
         >
-          <X size={20} />
+          <X size={18} />
         </button>
         <h2>Pokémon Comparison</h2>
 
@@ -58,7 +51,7 @@ export const CompareModal: React.FC<Props> = ({ pokemonList, onClose }) => {
           ))}
         </div>
 
-        <div style={{ marginTop: '2rem' }}>
+        <div style={{ marginTop: '1.75rem' }}>
           {stats.map((stat) => {
             const v1 = getStat(p1, stat);
             const v2 = getStat(p2, stat);
@@ -73,7 +66,7 @@ export const CompareModal: React.FC<Props> = ({ pokemonList, onClose }) => {
                 key={stat}
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: '1fr 80px 1fr',
+                  gridTemplateColumns: '1fr 85px 1fr',
                   gap: '1rem',
                   alignItems: 'center',
                   marginBottom: '1rem'
