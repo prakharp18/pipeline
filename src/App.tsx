@@ -108,6 +108,25 @@ export default function App() {
   };
 
   useEffect(() => {
+    if (!showFavsOnly || favorites.length === 0) return;
+    const missingIds = favorites.filter(
+      (id) => !pokemonList.some((p) => p.id === id)
+    );
+    if (missingIds.length > 0) {
+      Promise.all(missingIds.map((id) => fetchPokemonDetail(id).catch(() => null)))
+        .then((fetched) => {
+          const valid = fetched.filter((p): p is PokemonDetail => p !== null);
+          if (valid.length > 0) {
+            setPokemonList((prev) => {
+              const existingIds = new Set(prev.map((p) => p.id));
+              return [...prev, ...valid.filter((p) => !existingIds.has(p.id))];
+            });
+          }
+        });
+    }
+  }, [showFavsOnly, favorites, pokemonList]);
+
+  useEffect(() => {
     if (!urlPokemonName) {
       setSelectedPokemon(null);
       return;
