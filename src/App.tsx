@@ -15,9 +15,9 @@ import styles from './App.module.css';
 import compareStyles from './components/CompareModal.module.css';
 
 const POKEMON_TYPES = [
-  'fire', 'water', 'grass', 'electric', 'psychic', 'ice',
-  'fighting', 'poison', 'ground', 'flying', 'bug', 'rock',
-  'ghost', 'dragon', 'steel', 'fairy', 'dark', 'normal'
+  'normal', 'fire', 'water', 'grass', 'electric', 'ice',
+  'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug',
+  'rock', 'ghost', 'dragon', 'steel', 'fairy', 'dark'
 ];
 
 export default function App() {

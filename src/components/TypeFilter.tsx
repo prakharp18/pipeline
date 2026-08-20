@@ -10,22 +10,22 @@ interface TypeFilterProps {
 
 export const TypeFilter: React.FC<TypeFilterProps> = ({ types, selectedType, onTypeChange }) => (
   <div className={styles['type-filter-bar']}>
-      <button
-        className={`${styles['filter-pill']} ${selectedType === '' ? styles.selected : ''}`}
-        style={{ background: '#1a1a2e', color: '#fff' }}
-        onClick={() => onTypeChange('')}
-      >
-        All
-      </button>
-      {types.slice(0, 8).map((type) => {
-        const theme = getTypeTheme(type);
-        return (
-          <button
-            key={type}
-            className={`${styles['filter-pill']} ${selectedType === type ? styles.selected : ''}`}
-            style={{ background: theme.bg, color: theme.text }}
-            onClick={() => onTypeChange(type)}
-          >
+    <button
+      className={`${styles['filter-pill']} ${selectedType === '' ? styles.selected : ''}`}
+      style={{ background: '#1a1a2e', color: '#fff' }}
+      onClick={() => onTypeChange('')}
+    >
+      All
+    </button>
+    {types.map((type) => {
+      const theme = getTypeTheme(type);
+      return (
+        <button
+          key={type}
+          className={`${styles['filter-pill']} ${selectedType === type ? styles.selected : ''}`}
+          style={{ background: theme.bg, color: theme.text }}
+          onClick={() => onTypeChange(type)}
+        >
           {type}
         </button>
       );
