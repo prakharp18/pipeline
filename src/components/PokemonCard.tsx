@@ -21,14 +21,11 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
   isComparingSelected,
   onToggleCompare
 }) => {
-  const primary = pokemon.types[0]?.type.name || 'normal';
-  const theme = getTypeTheme(primary);
   const img = pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default;
 
   return (
     <div
       className={styles['poke-card']}
-      style={{ '--card-bg': theme.bg } as React.CSSProperties}
       onClick={() => onSelect(pokemon)}
     >
       <div className={styles['poke-card-top']}>
@@ -59,7 +56,6 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
       </div>
 
       <div className={styles['poke-card-footer']}>
-        <div className={styles['poke-card-label']}>Name</div>
         <div className={styles['poke-card-name']}>{capitalize(pokemon.name)}</div>
         <div className={styles['poke-tags']}>
           {pokemon.types.map((t) => {

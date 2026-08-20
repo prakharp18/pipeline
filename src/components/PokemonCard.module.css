@@ -7,24 +7,50 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s;
   box-shadow: var(--card-shadow);
+  border: 1px solid var(--border);
   cursor: pointer;
 }
 
 .poke-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 14px 28px -4px rgba(0, 0, 0, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
 }
 
 .poke-card-top {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 0.85rem;
   font-weight: 700;
-  opacity: 0.8;
   margin-bottom: 0.5rem;
+}
+
+.poke-card-id {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.fav-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  color: var(--text-muted);
+  transition: transform 0.15s, color 0.15s;
+}
+
+.fav-button:hover {
+  transform: scale(1.15);
+  color: #ef4444;
 }
 
 .poke-card-center {
@@ -39,11 +65,11 @@
   height: 110px;
   object-fit: contain;
   filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.1));
-  transition: transform 0.3s;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .poke-card:hover .poke-card-center img {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 .poke-card-footer {
@@ -52,15 +78,6 @@
   flex-direction: column;
   align-items: center;
   margin-top: auto;
-}
-
-.poke-card-label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  font-weight: 700;
-  margin-bottom: 0.15rem;
-  letter-spacing: 0.05em;
 }
 
 .poke-card-name {
@@ -73,13 +90,13 @@
 
 .poke-tags {
   display: flex;
-  gap: 0.3rem;
+  gap: 0.35rem;
 }
 
 .poke-tag {
   font-size: 0.65rem;
   font-weight: 800;
-  padding: 0.2rem 0.6rem;
+  padding: 0.2rem 0.65rem;
   border-radius: 9999px;
   text-transform: uppercase;
   color: #fff;
@@ -88,7 +105,6 @@
 
 @media (max-width: 480px) {
   .poke-card {
-    height: auto;
-    min-height: 200px;
+    height: 250px;
   }
 }

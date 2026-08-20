@@ -8,24 +8,28 @@
 .load-more-wrap {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .load-more-btn {
-  background: var(--text-dark);
-  color: var(--bg);
+  background: #1e293b;
+  color: #ffffff;
   border: none;
-  padding: 0.75rem 2rem;
+  padding: 0.8rem 2.2rem;
   border-radius: 9999px;
   font-size: 0.95rem;
   font-weight: 700;
+  font-family: inherit;
   cursor: pointer;
-  transition: transform 0.2s, opacity 0.2s;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
 }
 
 .load-more-btn:hover {
   transform: translateY(-2px);
-  opacity: 0.9;
+  background: var(--accent);
+  box-shadow: 0 8px 20px -2px rgba(239, 68, 68, 0.35);
 }
 
 .load-more-btn:disabled {
@@ -41,6 +45,12 @@
 }
 
 :global([data-theme='dark']) .load-more-btn {
-  background: #e2e8f0;
-  color: #0f172a;
+  background: #1e293b;
+  color: #f8fafc;
+  border: 1px solid var(--border);
+}
+
+:global([data-theme='dark']) .load-more-btn:hover {
+  background: var(--accent);
+  border-color: transparent;
 }
