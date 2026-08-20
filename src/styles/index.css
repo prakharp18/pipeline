@@ -1,8 +1,7 @@
-@import url('https://rsms.me/inter/inter.css');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-  font-family: 'Inter', sans-serif;
-  font-feature-settings: 'liga' 1, 'calt' 1;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --bg: #f0f2f5;
   --card-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.08);
   --text-dark: #1a1a2e;
@@ -10,10 +9,6 @@
   --border: #e5e7eb;
   --white: #ffffff;
   --radius: 16px;
-}
-
-@supports (font-variation-settings: normal) {
-  :root { font-family: 'InterVariable', sans-serif; }
 }
 
 [data-theme='dark'] {
