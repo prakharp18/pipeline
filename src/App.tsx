@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useMatch } from 'react-router-dom';
 import { PokemonGrid } from './components/PokemonGrid';
 import { SearchBar } from './components/SearchBar';
 import { TypeFilter } from './components/TypeFilter';
@@ -11,6 +12,7 @@ import { useFavorites } from './hooks/useFavorites';
 import { fetchPokemonList, fetchPokemonDetail, fetchPokemonByType } from './services/pokemonApi';
 import type { PokemonDetail, SortOption } from './types/pokemon';
 import styles from './App.module.css';
+import compareStyles from './components/CompareModal.module.css';
 
 const POKEMON_TYPES = [
   'fire', 'water', 'grass', 'electric', 'psychic', 'ice',
@@ -19,6 +21,10 @@ const POKEMON_TYPES = [
 ];
 
 export default function App() {
+  const navigate = useNavigate();
+  const pokemonMatch = useMatch('/pokemon/:name');
+  const urlPokemonName = pokemonMatch?.params.name;
+
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem('theme') === 'dark');
   const [pokemonList, setPokemonList] = useState<PokemonDetail[]>([]);
   const [offset, setOffset] = useState(0);
@@ -96,6 +102,39 @@ export default function App() {
       setLoading(false);
     }
   };
+
+  // Synchronize modal state with URL parameter /pokemon/:name
+  useEffect(() => {
+    if (!urlPokemonName) {
+      setSelectedPokemon(null);
+      return;
+    }
+    const q = urlPokemonName.toLowerCase().trim();
+    const existing = pokemonList.find(
+      (p) => p.name.toLowerCase() === q || p.id.toString() === q
+    );
+    if (existing) {
+      setSelectedPokemon(existing);
+    } else {
+      let isMounted = true;
+      fetchPokemonDetail(q)
+        .then((detail) => {
+          if (isMounted) {
+            setSelectedPokemon(detail);
+            setPokemonList((prev) => (prev.some((p) => p.id === detail.id) ? prev : [detail, ...prev]));
+          }
+        })
+        .catch(() => {
+          if (isMounted) {
+            setSelectedPokemon(null);
+            navigate('/', { replace: true });
+          }
+        });
+      return () => {
+        isMounted = false;
+      };
+    }
+  }, [urlPokemonName, pokemonList, navigate]);
 
   useEffect(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -176,7 +215,7 @@ export default function App() {
             pokemons={displayed}
             isFavorite={isFavorite}
             onToggleFavorite={toggleFavorite}
-            onSelect={setSelectedPokemon}
+            onSelect={(pokemon) => navigate(`/pokemon/${pokemon.name}`)}
             compareList={compareList}
             onToggleCompare={toggleCompare}
           />
@@ -192,19 +231,19 @@ export default function App() {
       )}
 
       {compareList.length > 0 && (
-        <div className="compare-bar">
+        <div className={compareStyles['compare-bar']}>
           <span>{compareList.length} selected</span>
           {compareList.length === 2 && (
-            <button className="cmp-go" onClick={() => setShowCompare(true)}>Compare</button>
+            <button className={compareStyles['cmp-go']} onClick={() => setShowCompare(true)}>Compare</button>
           )}
-          <button className="cmp-clear" onClick={() => setCompareList([])}>Clear</button>
+          <button className={compareStyles['cmp-clear']} onClick={() => setCompareList([])}>Clear</button>
         </div>
       )}
 
       {selectedPokemon && (
         <PokemonModal
           pokemon={selectedPokemon}
-          onClose={() => setSelectedPokemon(null)}
+          onClose={() => navigate('/')}
           isFavorite={isFavorite(selectedPokemon.id)}
           onToggleFavorite={toggleFavorite}
         />
