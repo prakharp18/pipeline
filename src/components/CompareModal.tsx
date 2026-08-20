@@ -11,7 +11,9 @@ interface Props {
 
 export const CompareModal: React.FC<Props> = ({ pokemonList, onClose }) => {
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
@@ -27,7 +29,18 @@ export const CompareModal: React.FC<Props> = ({ pokemonList, onClose }) => {
   return (
     <div className={styles['modal-backdrop']} onClick={onClose}>
       <div className={styles['compare-modal']} onClick={(e) => e.stopPropagation()}>
-        <button className={styles['modal-close-btn']} onClick={onClose} style={{ position: 'absolute', right: '1.5rem', top: '1.5rem', background: 'none', border: 'none', cursor: 'pointer' }}>
+        <button
+          className={styles['modal-close-btn']}
+          onClick={onClose}
+          style={{
+            position: 'absolute',
+            right: '1.5rem',
+            top: '1.5rem',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer'
+          }}
+        >
           <X size={20} />
         </button>
         <h2>Pokémon Comparison</h2>
@@ -54,27 +67,62 @@ export const CompareModal: React.FC<Props> = ({ pokemonList, onClose }) => {
             const maxVal = Math.max(v1, v2, 100);
             const p1Pct = (v1 / maxVal) * 100;
             const p2Pct = (v2 / maxVal) * 100;
-            
+
             return (
-              <div key={stat} style={{ display: 'grid', gridTemplateColumns: '1fr 80px 1fr', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
-                {/* P1 Stat */}
+              <div
+                key={stat}
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 80px 1fr',
+                  gap: '1rem',
+                  alignItems: 'center',
+                  marginBottom: '1rem'
+                }}
+              >
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                  <span className={styles['compare-stat-val']} style={{ color: isV1Better ? '#22c55e' : 'inherit' }}>{v1}</span>
+                  <span
+                    className={styles['compare-stat-val']}
+                    style={{ color: isV1Better ? '#22c55e' : 'inherit' }}
+                  >
+                    {v1}
+                  </span>
                   <div className={styles['compare-stat-bar-bg']} style={{ direction: 'rtl' }}>
-                    <div className={styles['compare-stat-bar-fill']} style={{ width: `${p1Pct}%`, backgroundColor: isV1Better ? '#22c55e' : 'var(--border)' }} />
+                    <div
+                      className={styles['compare-stat-bar-fill']}
+                      style={{
+                        width: `${p1Pct}%`,
+                        backgroundColor: isV1Better ? '#22c55e' : 'var(--border)'
+                      }}
+                    />
                   </div>
                 </div>
-                
-                {/* Stat Name */}
-                <div style={{ textAlign: 'center', fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-muted)' }}>
+
+                <div
+                  style={{
+                    textAlign: 'center',
+                    fontSize: '0.8rem',
+                    fontWeight: 700,
+                    color: 'var(--text-muted)'
+                  }}
+                >
                   {stat.replace('-', ' ')}
                 </div>
 
-                {/* P2 Stat */}
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                  <span className={styles['compare-stat-val']} style={{ color: isV2Better ? '#22c55e' : 'inherit' }}>{v2}</span>
+                  <span
+                    className={styles['compare-stat-val']}
+                    style={{ color: isV2Better ? '#22c55e' : 'inherit' }}
+                  >
+                    {v2}
+                  </span>
                   <div className={styles['compare-stat-bar-bg']}>
-                    <div className={styles['compare-stat-bar-fill']} style={{ width: `${p2Pct}%`, backgroundColor: isV2Better ? '#22c55e' : 'var(--border)' }} />
+                    <div
+                      className={styles['compare-stat-bar-fill']}
+                      style={{
+                        width: `${p2Pct}%`,
+                        backgroundColor: isV2Better ? '#22c55e' : 'var(--border)'
+                      }}
+                    />
                   </div>
                 </div>
               </div>

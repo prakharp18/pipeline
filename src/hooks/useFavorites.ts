@@ -14,7 +14,7 @@ export function useFavorites() {
     try {
       localStorage.setItem('pokemon_favorites', JSON.stringify(favorites));
     } catch {
-      // Ignore storage errors
+      // pass
     }
   }, [favorites]);
 
